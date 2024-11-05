@@ -28,7 +28,7 @@ export default function ListView() {
         );
     }
     return (
-        <div className="flex-1 flex flex-col gap-3 md:pr-5 md:px-0 px-5 rounded-xl">
+        <div className="flex-1 flex flex-col gap-3 md:pr-5 md:px-0 px-5 rounded-xl w-full overflow-x-auto">
             <table className="border-separate border-spacing-y-3">
                 <thead>
                     <tr>
@@ -94,7 +94,7 @@ function Row({ item, index }) {
                 </div>
 
             </td>
-            <td className="border-y bg-white px-3 py-2">{item?.title}</td>
+            <td className="border-y bg-white px-3 py-2 whitespace-nowrap">{item?.title}</td>
             <td className="border-y bg-white px-3 py-2">
                {item?.salePrice < item?.price && <span className="text-xs text-gray-500 line-through"> ₨{item?.price}</span>} ₨{item?.salePrice}
             </td>
