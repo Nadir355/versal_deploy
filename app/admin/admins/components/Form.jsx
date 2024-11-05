@@ -1,7 +1,7 @@
 "use client"
 
-import { getCategory } from "@/lib/firebase/categories/read_server";
-import { createNewCategory, updateCategory } from "@/lib/firebase/categories/write";
+import { getAdmin } from "@/lib/firebase/admins/read_server";
+import { createNewAdmin, updateAdmin } from "@/lib/firebase/admins/write";
 import { Button } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,9 +18,9 @@ export default  function Form(){
 
     const fetechData=async()=>{
         try {
-            const res=await getCategory({id:id});
+            const res=await getAdmin({id:id});
             if (!res) {
-                toast.error("Category Not Found");
+                toast.error("Admmin Not Found");
             }
             else{
                 setData(res)
@@ -48,7 +48,7 @@ export default  function Form(){
     const handleCreate=async()=>{
         setIsLoading(true);
         try{
-            await createNewCategory({data:data,image:image});
+            await createNewAdmin({data:data,image:image});
             toast.success("Successfully Created");
             setData(null);
             setImage(null);
@@ -61,11 +61,11 @@ export default  function Form(){
     const handleUpdate=async()=>{
         setIsLoading(true);
         try{
-            await updateCategory({data:data,image:image});
+            await updateAdmin({data:data,image:image});
             toast.success("Successfully Updated");
             setData(null);
             setImage(null);
-            router.push(`/admin/categories`)
+            router.push(`/admin/admins`)
         }
         catch(error){
             toast.error(error?.message);
@@ -75,7 +75,7 @@ export default  function Form(){
 
     return (
         <div className="flex flex-col gap-3 bg-white rounded-xl pd-5 w-full md:w-[400px]">
-            <h1  className="font-semibold">{id?"Update":"Create "} Category</h1>
+            <h1  className="font-semibold">{id?"Update":"Create "} Admin</h1>
             <form 
             onSubmit={(e)=>{
                 e.preventDefault();
@@ -89,7 +89,7 @@ export default  function Form(){
             className="flex flex-col gap-3"
             >
                 <div className=" flex flex-col gap-1">
-                    <label  htmlFor="category-name" className="text-gray-500 text-sm">
+                    <label  htmlFor="admin-name" className="text-gray-500 text-sm">
                         Image <span className="text-red-500">*</span>{" "}
                     </label>
                     <div className="flex justify-center items-center">
@@ -101,18 +101,18 @@ export default  function Form(){
                             setImage(e.target.files[0]);
                         }
                     }}
-                    id="category-image"
-                    name="category-image"
+                    id="admin-image"
+                    name="admin-image"
                     type="file" 
                     className="border px-4 py-2  rounded-lg w-full focus:outline-none"
                     />
                 </div>
                 <div className=" flex flex-col gap-1">
-                    <label  htmlFor="category-name" className="text-gray-500 text-sm">
+                    <label  htmlFor="admin-name" className="text-gray-500 text-sm">
                         Name <span className="text-red-500">*</span>{" "}
                     </label>
-                    <input id="category-name"
-                    name="category-name"
+                    <input id="admin-name"
+                    name="admin-name"
                     type="text" 
                     placeholder="Enter Name"
                     value={data?.name ?? ""}
@@ -120,21 +120,23 @@ export default  function Form(){
                         handleData("name",e.target.value);
                     }}
                     className="border px-4 py-2  rounded-lg w-full focus:outline-none"
+                    required
                     />
                 </div>
                 <div className=" flex flex-col gap-1">
-                    <label  htmlFor="category-name" className="text-gray-500 text-sm">
-                        Slug <span className="text-red-500">*</span>{" "}
+                    <label  htmlFor="admin-email" className="text-gray-500 text-sm">
+                        Email <span className="text-red-500">*</span>{" "}
                     </label>
-                    <input id="category-slug"
-                    name="category-slug"
-                    type="text" 
-                    placeholder="Enter Slug"
-                    value={data?.slug ?? ""}
+                    <input id="admin-email"
+                    name="admin-email"
+                    type="email" 
+                    placeholder="Enter Email"
+                    value={data?.email ?? ""}
                     onChange={(e)=>{
-                        handleData("slug",e.target.value);
+                        handleData("email",e.target.value);
                     }}
                     className="border px-4 py-2  rounded-lg w-full focus:outline-none"
+                    required
                     />
                 </div>
                 <Button isloading={isloading} isDisabled={isloading} type="submit">{id?"Update":"Create"}</Button>

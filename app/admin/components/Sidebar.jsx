@@ -60,35 +60,38 @@ export default function Sidebar(){
         },
         
     ]
-    return( <section className="flex flex-col gap-5  bg-white border-r px-5 py-3 h-screen overflow-hideen w-[260px]">
-        <div className="flex justify-center py-4">
-            <img className="h-10 " src="/logo2.png" alt="" />
-        </div>
-        <ul className="flex-1 flex flex-col gap-2 h-full overflow-y-auto">
-            {menuList?.map((item,key)=>{
-                return <Tab item={item} key={key} />
-            })}
-        </ul>
-        <div className="flex justify-center">
-            <button onClick={async()=>
-            {
-                try{
-                    await toast.promise(signOut(auth),{
-                        error:(e)=>e?.message,
-                        loading:"loading....",
-                        success:"Logged out successfully✔"
-                    });
+    return (
+        <section className="flex flex-col gap-1 bg-white border-r px-5 py-3 h-screen overflow-hidden w-[260px] z-[1000]">
+          <div className="flex justify-center py-4">
+            <img className="h-10" src="/logo2.png" alt="Logo" />
+          </div>
+          <ul className=" flex-1 flex flex-col gap-2 h-full overflow-y-auto">
+            {menuList?.map((item, key) => (
+              <Tab item={item} key={key} />
+            ))}
+          </ul>
+          <div className="flex justify-center py-4">
+            <button
+              onClick={async () => {
+                try {
+                  await toast.promise(signOut(auth), {
+                    error: (e) => e?.message,
+                    loading: "Loading...",
+                    success: "Logged out successfully ✔",
+                  });
+                } catch (error) {
+                  toast.error(error?.message);
                 }
-                catch(error){
-                    toast.error(error?.message);
-                }
-            }
-            } className=" flex gap-2 items-center px-3 py-1 hover:bg-indigo-100 rounded-xl justify-center w-full ease-soft-sprig duration-400 transition-all">
-                <LucideLogOut className="h-4 w-4" />logout
+              }}
+              className="flex gap-2 items-center px-3 py-1 hover:bg-indigo-100 rounded-xl justify-center w-full transition-all duration-400 ease-soft-spring"
+            >
+              <LucideLogOut className="h-4 w-4" />
+              Logout
             </button>
-        </div>
-    </section>
-    );
+          </div>
+        </section>
+      );
+      
 }
 
 

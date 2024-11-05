@@ -9,15 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^43.3.0",
+    "@ckeditor/ckeditor5-react": "^9.3.1",
     "@nextui-org/react": "^2.4.8",
+    "@tinymce/tinymce-react": "^5.1.1",
+    "draft-js": "^0.11.7",
+    "draft-js-utils": "^1.4.1",
     "firebase": "^11.0.1",
     "framer-motion": "^11.11.10",
     "lucide-react": "^0.453.0",
-    "next": "^15.0.1",
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "next": "^15.0.2",
+    "quill": "^2.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.27.0"
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.27.0",
+    "slate": "^0.110.2",
+    "slate-dom": "^0.111.0",
+    "slate-history": "^0.110.3",
+    "slate-react": "^0.111.0",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "postcss": "^8",

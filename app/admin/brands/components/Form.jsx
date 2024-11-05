@@ -1,7 +1,7 @@
 "use client"
 
-import { getCategory } from "@/lib/firebase/categories/read_server";
-import { createNewCategory, updateCategory } from "@/lib/firebase/categories/write";
+import { getBrand } from "@/lib/firebase/brands/read_server";
+import { createNewBrand, updateBrand } from "@/lib/firebase/brands/write";
 import { Button } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,9 +18,9 @@ export default  function Form(){
 
     const fetechData=async()=>{
         try {
-            const res=await getCategory({id:id});
+            const res=await getBrand({id:id});
             if (!res) {
-                toast.error("Category Not Found");
+                toast.error("Brand Not Found");
             }
             else{
                 setData(res)
@@ -48,7 +48,7 @@ export default  function Form(){
     const handleCreate=async()=>{
         setIsLoading(true);
         try{
-            await createNewCategory({data:data,image:image});
+            await createNewBrand({data:data,image:image});
             toast.success("Successfully Created");
             setData(null);
             setImage(null);
@@ -61,11 +61,11 @@ export default  function Form(){
     const handleUpdate=async()=>{
         setIsLoading(true);
         try{
-            await updateCategory({data:data,image:image});
+            await updateBrand({data:data,image:image});
             toast.success("Successfully Updated");
             setData(null);
             setImage(null);
-            router.push(`/admin/categories`)
+            router.push(`/admin/brands`)
         }
         catch(error){
             toast.error(error?.message);
@@ -75,7 +75,7 @@ export default  function Form(){
 
     return (
         <div className="flex flex-col gap-3 bg-white rounded-xl pd-5 w-full md:w-[400px]">
-            <h1  className="font-semibold">{id?"Update":"Create "} Category</h1>
+            <h1  className="font-semibold">{id?"Update":"Create "} Brand</h1>
             <form 
             onSubmit={(e)=>{
                 e.preventDefault();
@@ -89,7 +89,7 @@ export default  function Form(){
             className="flex flex-col gap-3"
             >
                 <div className=" flex flex-col gap-1">
-                    <label  htmlFor="category-name" className="text-gray-500 text-sm">
+                    <label  htmlFor="brand-name" className="text-gray-500 text-sm">
                         Image <span className="text-red-500">*</span>{" "}
                     </label>
                     <div className="flex justify-center items-center">
@@ -101,38 +101,23 @@ export default  function Form(){
                             setImage(e.target.files[0]);
                         }
                     }}
-                    id="category-image"
-                    name="category-image"
+                    id="brand-image"
+                    name="brand-image"
                     type="file" 
                     className="border px-4 py-2  rounded-lg w-full focus:outline-none"
                     />
                 </div>
                 <div className=" flex flex-col gap-1">
-                    <label  htmlFor="category-name" className="text-gray-500 text-sm">
+                    <label  htmlFor="brand-name" className="text-gray-500 text-sm">
                         Name <span className="text-red-500">*</span>{" "}
                     </label>
-                    <input id="category-name"
-                    name="category-name"
+                    <input id="brand-name"
+                    name="brand-name"
                     type="text" 
                     placeholder="Enter Name"
                     value={data?.name ?? ""}
                     onChange={(e)=>{
                         handleData("name",e.target.value);
-                    }}
-                    className="border px-4 py-2  rounded-lg w-full focus:outline-none"
-                    />
-                </div>
-                <div className=" flex flex-col gap-1">
-                    <label  htmlFor="category-name" className="text-gray-500 text-sm">
-                        Slug <span className="text-red-500">*</span>{" "}
-                    </label>
-                    <input id="category-slug"
-                    name="category-slug"
-                    type="text" 
-                    placeholder="Enter Slug"
-                    value={data?.slug ?? ""}
-                    onChange={(e)=>{
-                        handleData("slug",e.target.value);
                     }}
                     className="border px-4 py-2  rounded-lg w-full focus:outline-none"
                     />
