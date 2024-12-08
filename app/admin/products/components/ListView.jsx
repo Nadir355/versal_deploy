@@ -11,30 +11,30 @@ import toast from "react-hot-toast";
 
 export default function ListView() {
     const [pageLimit, setPageLimit] = useState(10)
-    const [lastSnapDocList,setlastSnapDocList]=useState([]);
-    useEffect(()=>{
+    const [lastSnapDocList, setlastSnapDocList] = useState([]);
+    useEffect(() => {
         setlastSnapDocList([]);
-    },[pageLimit])
+    }, [pageLimit])
     const {
         data: products,
         error,
         isLoading,
         lastSnapDoc,
-      } = useProducts({
+    } = useProducts({
         pageLimit: pageLimit,
         lastSnapDoc:
-          lastSnapDocList?.length === 0
-            ? null
-            : lastSnapDocList[lastSnapDocList?.length - 1],
+            lastSnapDocList?.length === 0
+                ? null
+                : lastSnapDocList[lastSnapDocList?.length - 1],
     });
 
-    const handleNextPage=()=>{
-        let newStack=[...lastSnapDocList];
+    const handleNextPage = () => {
+        let newStack = [...lastSnapDocList];
         newStack.push(lastSnapDoc);
         setlastSnapDocList(newStack);
     };
-    const handlePrePage=()=>{
-        let newStack=[...lastSnapDocList];
+    const handlePrePage = () => {
+        let newStack = [...lastSnapDocList];
         newStack.pop();
         setlastSnapDocList(newStack);
     };
@@ -85,12 +85,12 @@ export default function ListView() {
                 </thead>
                 <tbody>
                     {products?.map((item, index) => {
-                        return <Row index={index + lastSnapDocList?.length*pageLimit} item={item} key={item?.id} />;
+                        return <Row index={index + lastSnapDocList?.length * pageLimit} item={item} key={item?.id} />;
                     })}
                 </tbody>
             </table>
             <div className="flex justify-between text-sm py-3">
-                <Button isDisabled={isLoading || lastSnapDocList?.length===0} onClick={handlePrePage} size="sm" variant="bordered">Previous</Button>
+                <Button isDisabled={isLoading || lastSnapDocList?.length === 0} onClick={handlePrePage} size="sm" variant="bordered">Previous</Button>
                 <select
                     value={pageLimit}
                     onChange={(e) => setPageLimit(e.target.value)}
@@ -103,7 +103,7 @@ export default function ListView() {
                     <option value={20}>20 items</option>
                     <option value={100}>100 items</option>
                 </select>
-                <Button isDisabled={isLoading || products?.length===0} onClick={handleNextPage} size="sm" variant="bordered">Next</Button>
+                <Button isDisabled={isLoading || products?.length === 0} onClick={handleNextPage} size="sm" variant="bordered">Next</Button>
             </div>
         </div>
     );
@@ -137,7 +137,7 @@ function Row({ item, index }) {
                 </div>
 
             </td>
-            <td className="border-y bg-white px-3 py-2 whitespace-nowrap">{item?.title}</td>
+            <td className="border-y bg-white px-3 py-2 whitespace-nowrap">{item?.title} {item?.isFeatured===true && <span className=" ml-2 bg-gradient-to-tr from-blue-600 to-indigo-400 text-white text-[10px] rounded-full px-3 py-1">Featured</span>}</td>
             <td className="border-y bg-white px-3 py-2">
                 {item?.salePrice < item?.price && <span className="text-xs text-gray-500 line-through"> ₨{item?.price}</span>} ₨{item?.salePrice}
             </td>

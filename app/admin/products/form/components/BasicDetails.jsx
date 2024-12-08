@@ -60,8 +60,8 @@ export default function BasicDetails({ data, handleData }) {
                     className="border px-4 py-2 rounded-lg w-full outline-none"
                 >
                     <option value="">Select Brand</option>
-                    {brands?.map((item)=>{
-                        return(
+                    {brands?.map((item) => {
+                        return (
                             <option value={item?.id} key={item?.id}>
                                 {item?.name}
                             </option>
@@ -86,8 +86,8 @@ export default function BasicDetails({ data, handleData }) {
                     className="border px-4 py-2 rounded-lg w-full outline-none"
                 >
                     <option value="">Select Category</option>
-                    {categories?.map((item)=>{
-                        return(
+                    {categories?.map((item) => {
+                        return (
                             <option value={item?.id} key={item?.id}>
                                 {item?.name}
                             </option>
@@ -98,7 +98,7 @@ export default function BasicDetails({ data, handleData }) {
 
             <div className="flex flex-col gap-1">
                 <label className="text-gray-500 text-xs" htmlFor="product-stock">
-                   Stock <span className="text-color-red-500">*</span>
+                    Stock <span className="text-color-red-500">*</span>
                 </label>
                 <input
                     type="number"
@@ -116,7 +116,7 @@ export default function BasicDetails({ data, handleData }) {
 
             <div className="flex flex-col gap-1">
                 <label className="text-gray-500 text-xs" htmlFor="product-price">
-                   Price <span className="text-color-red-500">*</span>
+                    Price <span className="text-color-red-500">*</span>
                 </label>
                 <input
                     type="number"
@@ -134,7 +134,7 @@ export default function BasicDetails({ data, handleData }) {
 
             <div className="flex flex-col gap-1">
                 <label className="text-gray-500 text-xs" htmlFor="product-sale-price">
-                   Sale Price <span className="text-color-red-500">*</span>
+                    Sale Price <span className="text-color-red-500">*</span>
                 </label>
                 <input
                     type="number"
@@ -149,6 +149,28 @@ export default function BasicDetails({ data, handleData }) {
                     className="border px-4 py-2 rounded-lg w-full outline-none"
                 />
             </div>
+
+            <div className="flex flex-col gap-1">
+                <label className="text-gray-500 text-xs" htmlFor="product-is-featured-product">
+                    Is Featured Product <span className="text-color-red-500">*</span>
+                </label>
+                <select
+                    type="number"
+                    placeholder="Enter Sale Price"
+                    id="product-is-featured-product"
+                    name="product-is-featured-product"
+                    value={data?.isFeatured ? "yes" : "no"}
+                    onChange={(e) => {
+                        handleData("isFeatured", e.target.value === "yes" ? true : false);
+                    }}
+                    className="border px-4 py-2 rounded-lg w-full outline-none"
+                    required
+                >
+                    <option value={"no"}>No</option>
+                    <option value={"yes"}>Yes</option>
+                </select>
+            </div>
+
         </section>
     );
 }
